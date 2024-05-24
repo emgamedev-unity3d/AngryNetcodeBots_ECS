@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="MainContainer" style="flex-grow: 0.5; width: 50%; height: 50%; align-self: center; justify-content: center; display: flex; visibility: visible; background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(255, 255, 255); flex-basis: 0;">
+        <ui:Label tabindex="-1" text="Game Connection Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TitleLabel" style="align-self: auto; opacity: 1; font-size: 24px; -unity-text-align: upper-center; -unity-font-style: bold; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="ConnectionSettings" style="flex-grow: 1;">
+            <ui:VisualElement name="ConnectionMode" style="flex-grow: 1;">
+                <ui:DropdownField label="Connection Mode:" name="ConnectionModeDropdown" index="0" choices="Host (Client + Server), Client Only, Server Only" style="color: rgb(118, 118, 118);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ConnectionAddress" style="flex-grow: 1;">
+                <ui:TextField picking-mode="Ignore" label="Connection Address:" value="127.0.0.1" name="ConnectionAddressTextField" style="color: rgb(126, 126, 126);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ConnectionPort" style="flex-grow: 1;">
+                <ui:TextField picking-mode="Ignore" label="Connection Port:" value="7979" name="ConnectionPortTextField" auto-correction="false" style="color: rgb(128, 128, 128); background-color: rgba(255, 255, 255, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Start as Host" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConnectButton" />
+    </ui:VisualElement>
+</ui:UXML>
