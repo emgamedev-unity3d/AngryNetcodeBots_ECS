@@ -124,7 +124,6 @@ public class ClientConnectionManager : MonoBehaviour
 
         // what ip and port to connect to
         var clientEndpoint = NetworkEndpoint.Parse(Address, Port);
-
         {
             using var networkDriverQuery = clientWorld.EntityManager.CreateEntityQuery(
                 ComponentType.ReadWrite<NetworkStreamDriver>());
@@ -133,6 +132,12 @@ public class ClientConnectionManager : MonoBehaviour
                 clientWorld.EntityManager,
                 clientEndpoint);
         }
+
+        // creating entity that represents the request to join the game
+        var teamRequestEntity = clientWorld.EntityManager.CreateEntity();
+        clientWorld.EntityManager.AddComponentData(
+            teamRequestEntity,
+            new NewClientJoinRequest { });
 
         // doing this because we disposed the default world
         World.DefaultGameObjectInjectionWorld = clientWorld;
