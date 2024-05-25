@@ -1,7 +1,10 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.NetCode;
+using Unity.Transforms;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Server
 {
@@ -18,11 +21,16 @@ namespace Server
                                             //  receive on the server
 
             state.RequireForUpdate(state.GetEntityQuery(builder));
+
+            state.RequireForUpdate<PlayerSpawner>();
+            //^ required to spawn the player
         }
 
         public void OnUpdate(ref SystemState state)
         {
             var entityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
+
+            var playerPrefab = SystemAPI.GetSingleton<PlayerSpawner>().playerPrefab;
 
             foreach (var (teamRequest, receiveRPC, requestEntity) 
                 in SystemAPI.Query<GoInGameRequest, ReceiveRpcCommandRequest>()
@@ -39,10 +47,31 @@ namespace Server
 
                 Debug.Log($"Newly connected client with id: {clientId}");
 
-                // TODO: Instantiate player here
+                // Instantiate the player
+                var newPlayer = entityCommandBuffer.Instantiate(playerPrefab);
+                entityCommandBuffer.SetName(newPlayer, $"Player_client:{clientId}");
+
+                float3 spawnPosition = NewRandomPosition();
+                var newTransform = LocalTransform.FromPosition(spawnPosition);
+                entityCommandBuffer.SetComponent(newPlayer, newTransform);
+
+                entityCommandBuffer.SetComponent(
+                    newPlayer,
+                    new GhostOwner { NetworkId = clientId });
+                // ^^ setting this on server side, to associate it with the proper client
+
+                entityCommandBuffer.AppendToBuffer(
+                    receiveRPC.SourceConnection, // bind to client connection
+                    new LinkedEntityGroup { Value = newPlayer });
+                // ^so that we can destroy this whent the client disconnects
             }
 
             entityCommandBuffer.Playback(state.EntityManager);
+        }
+
+        private readonly float3 NewRandomPosition()
+        {
+            return new float3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
         }
     }
 }
