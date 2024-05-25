@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ConnectionScene.unity
+    path: Assets/Scenes/Multiplayer/ConnectionScene.unity
     guid: 9930922b29f99974eb186e849ad411a2
   - enabled: 1
-    path: Assets/Scenes/Netcode_ECS_Shooter.unity
+    path: Assets/Scenes/Multiplayer/Netcode_ECS_Shooter.unity
     guid: 01e793a7b75f1824b80c5d0717cb8c49
   m_configObjects: {}
