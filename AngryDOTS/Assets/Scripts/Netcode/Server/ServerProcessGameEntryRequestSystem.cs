@@ -43,11 +43,12 @@ namespace Server
                     receiveRPC.SourceConnection);
                 // ^ same target connection specified in client
 
-                int clientId = SystemAPI.GetComponent<NetworkId>(receiveRPC.SourceConnection).Value;
+                int clientId = 
+                    SystemAPI.GetComponent<NetworkId>(receiveRPC.SourceConnection).Value;
 
                 Debug.Log($"Newly connected client with id: {clientId}");
 
-                // Instantiate the player
+                // Instantiate the player on the server side
                 var newPlayer = entityCommandBuffer.Instantiate(playerPrefab);
                 entityCommandBuffer.SetName(newPlayer, $"Player_client:{clientId}");
 

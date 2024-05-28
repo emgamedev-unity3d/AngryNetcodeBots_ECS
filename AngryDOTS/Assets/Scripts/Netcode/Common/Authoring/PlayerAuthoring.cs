@@ -13,6 +13,8 @@ public class PlayerAuthoring : MonoBehaviour
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<PlayerTag> (entity);
             AddComponent<PlayerMoveInput>(entity);
+            AddComponent<SetupPlayerClientWithCamera>(entity);
+            AddComponent<SetupClientGhostWithModel>(entity);
             AddComponent(entity, new PlayerMoveSpeed { speed = authoring.m_moveSpeed});
         }
     }
