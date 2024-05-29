@@ -69,5 +69,6 @@ public class ClientVisualProxyManager : MonoBehaviour
         }
 
         m_clientVisualModels.Remove(clientId);
+        Debug.Log($"Removed the visual model for client id:{clientId}");
     }
 }

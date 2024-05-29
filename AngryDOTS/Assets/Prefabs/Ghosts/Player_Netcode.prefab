@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3011104880588475739}
   - component: {fileID: -3219353749924510745}
   - component: {fileID: -1557372225791322813}
+  - component: {fileID: -5977755520160147101}
   m_Layer: 0
   m_Name: Player_Netcode
   m_TagString: Player
@@ -134,6 +135,19 @@ MonoBehaviour:
   TrackInterpolationDelay: 0
   GhostGroup: 0
   UsePreSerialization: 0
+--- !u!114 &-5977755520160147101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500293480320252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfdaa6c06fe64fbda2b16e07a4ee0b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentOverrides: []
 --- !u!1 &5749291718568118633
 GameObject:
   m_ObjectHideFlags: 0
