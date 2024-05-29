@@ -16,7 +16,3 @@ public struct SetupClientGhostWithModel : IComponentData
 public struct PlayerIsDisconnecting : IComponentData
 {
 }
-
-public struct PlayerDisconnectRpc: IRpcCommand
-{
-}
