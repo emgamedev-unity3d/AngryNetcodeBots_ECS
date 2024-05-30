@@ -7,7 +7,7 @@ public struct PlayerMoveInput : IInputComponentData
     public float Horizontal;
     public float Vertical;
 
-    public float2 mouseScreenSpacePosition;
+    public float3 mouseScreenSpacePosition;
 }
 
 public struct PlayerMovementStateData : IComponentData

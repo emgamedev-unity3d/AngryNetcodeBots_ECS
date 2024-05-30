@@ -10,12 +10,11 @@ public partial struct PlayerMovementSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (input, moveSpeed, transform, playerMovementStateData) in
+        foreach (var (input, moveSpeed, transform) in
             SystemAPI.Query<
                 RefRO<PlayerMoveInput>,
                 RefRO<MoveSpeed>,
-                RefRW<LocalTransform>,
-                RefRW<PlayerMovementStateData>>()
+                RefRW<LocalTransform>>()
                     .WithAll<Simulate>())
         {
             float speed = moveSpeed.ValueRO.Value * SystemAPI.Time.DeltaTime;
@@ -23,20 +22,6 @@ public partial struct PlayerMovementSystem : ISystem
             var moveInput = new float2(input.ValueRO.Horizontal, input.ValueRO.Vertical);
             moveInput = math.normalizesafe(moveInput) * speed;
             transform.ValueRW.Position += new float3(moveInput.x, 0f, moveInput.y);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                float3 hitPoint = hit.point;
-
-                Vector3 playerToMouse = hitPoint - transform.ValueRO.Position;
-                playerToMouse.y = 0f;
-                playerToMouse.Normalize();
-
-                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                transform.ValueRW.Rotation = newRotation;
-            }
 
             //TODO: for animation data
 
