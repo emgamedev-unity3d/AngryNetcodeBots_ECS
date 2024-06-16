@@ -19,6 +19,7 @@ public class PlayerAuthoring : MonoBehaviour
             AddComponent(
                 entity,
                 new PlayerMovementStateData { forward = 0f, strafe = 0f });
+            AddComponent<FireGunInput>(entity);
         }
     }
 }

@@ -38,8 +38,8 @@ public partial struct ClientGoInGameRequestSystem : ISystem
             entityCommandBuffer.AddComponent(
                 requestTeamEntity, new GoInGameRequest { });
 
-        // RPC to tell the server which client requests to connect to it
-        entityCommandBuffer.AddComponent(
+            // RPC to tell the server which client requests to connect to it
+            entityCommandBuffer.AddComponent(
                 requestTeamEntity,
                 new SendRpcCommandRequest { TargetConnection = pendingNetworkId });
         }

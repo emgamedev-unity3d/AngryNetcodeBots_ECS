@@ -19,26 +19,27 @@ public partial struct PlayerDisconnectSendServerRpc : ISystem
 
         var entityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
 
-        foreach (var evt in connectionEventsForClient)
+        foreach (var connectionEvent in connectionEventsForClient)
         {
-            if (evt.State != ConnectionState.State.Disconnected)
+            if (connectionEvent.State != ConnectionState.State.Disconnected)
                 return;
+
             Debug.Log(
-                $"[{state.WorldUnmanaged.Name}] {evt.ToFixedString()} connectionId:{evt.Id.Value}!");
+                $"[{state.WorldUnmanaged.Name}] {connectionEvent.ToFixedString()} connectionId:{connectionEvent.Id.Value}!");
 
             var disconnectedClientRpc = entityCommandBuffer.CreateEntity();
 
             // RPC to tell the server the client wants to join
             entityCommandBuffer.AddComponent(
                 disconnectedClientRpc,
-                new PlayerDisconnectRpc { clientIdThatDisconnected = evt.Id.Value });
+                new PlayerDisconnectRpc { clientIdThatDisconnected = connectionEvent.Id.Value });
 
             // RPC to tell the server which client requests to connect to it
             entityCommandBuffer.AddComponent(
                     disconnectedClientRpc,
                     new SendRpcCommandRequest
-                    { 
-                        TargetConnection = Entity.Null 
+                    {
+                        TargetConnection = Entity.Null
                         //^ setting this to Null, to breadcast the message to all clients
                     });
         }
