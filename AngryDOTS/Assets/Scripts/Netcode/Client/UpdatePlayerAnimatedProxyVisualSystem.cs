@@ -26,6 +26,11 @@ public partial struct UpdatePlayerAnimatedProxyVisualSystem : ISystem
             var clientPlayerVisualGO = 
                 ClientVisualProxyManager.Instance.GetVisualModelForClient(clientId);
 
+            // TODO: find a way to avoid having to do this check every frame.
+            //      see if you can 
+            if (clientPlayerVisualGO == null)
+                return;
+
             clientPlayerVisualGO.transform.position = localTransform.ValueRO.Position;
             clientPlayerVisualGO.transform.rotation = localTransform.ValueRO.Rotation;
 

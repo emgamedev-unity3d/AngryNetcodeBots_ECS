@@ -43,5 +43,7 @@ public partial struct PlayerDisconnectReceiveClientRpcSystem : ISystem
             ClientVisualProxyManager.Instance.RemoveClientVisual(
                 playerDisconnectRpc.clientIdThatDisconnected);
         }
+
+        entityCommandBuffer.Playback(state.EntityManager);
     }
 }
